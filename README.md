@@ -190,20 +190,37 @@ used to.
 
 ## Localization
 
-Ships in **English, French, Russian, Korean, and Simplified Chinese** since
-v1.10.0. Translations are bundled in `Locales/`, selected from `GetLocale()`, and
-fall back to English per-phrase, so a partial language renders as itself where it
-has a translation and as English where it does not. Simplified Chinese is
-complete; French, Russian and Korean are partial and growing.
+Ships in **English, French, Russian, Korean, Simplified Chinese, and Traditional
+Chinese**, all six complete as of v1.11.0. Translations are bundled in
+`Locales/`, selected from `GetLocale()`, and fall back to English per-phrase, so
+a language renders as itself where it has a translation and as English where it
+does not.
+
+### Translators
+
+| | |
+|---|---|
+| French | **Zox** |
+| Russian | **Malevi4** |
+| Korean | **labrie75** |
+| Simplified Chinese | **Keriaovo** |
+| Traditional Chinese | **BNS333** |
+
+⚠ **Credit where it is actually due.** These five translated *my other addons*.
+Cooldown Master shares a portion of its text with those, and inherited their
+work for free through the shared store. Everything beyond that was written
+in-house in each translator's established style and with their permission — so
+any mistake in it is mine, not theirs. The same note is on the addon's About
+tab, and corrections are very welcome: open an issue or say so in the Discord.
 
 **`Locales/*.lua` are generated — never hand-edit one.** They are built from the
 [EverythingLocales](https://github.com/wheelbarrel00/EverythingLocales) shared
 store, which CooldownMaster joined as a third addon alongside Everything Quests
 and EQ Objective Tracker. That store keys a translation on its **English phrase**
-rather than on any addon, so a phrase CDM shares with the other two arrived
-already translated — 45 of them did, in four languages, on day one. Editing a
-generated file here is overwritten on the next build, and that repo's drift check
-exists to catch exactly that.
+rather than on any addon, so a phrase CDM shares with the other two arrives
+already translated — 45 did on the day CDM joined, before anyone typed anything.
+Editing a generated file here is overwritten on the next build, and that repo's
+drift check exists to catch exactly that.
 
 `Locales/enUS.lua` is the manifest and creates `ns.L`. It must load after
 `embeds.xml` and before `Core\Constants.lua` in all four `.toc` files. `ns.L`
@@ -224,8 +241,9 @@ repo checked out.
 
 ## Planned
 
-- **More languages, and fuller coverage** in the ones already shipped —
-  contributions welcome, and no tooling or GitHub account is needed to help.
+- **More languages** — the five shipped are complete, and contributions are
+  welcome, with no tooling or GitHub account needed to help. Corrections to the
+  existing ones are just as welcome.
 - **More tracking indicator types** (Classic) — the per-lane secondary tracking
   covers the GCD and your main-hand swing timer today; further indicator types are
   on the list.

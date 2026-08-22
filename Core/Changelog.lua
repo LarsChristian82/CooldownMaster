@@ -2,11 +2,32 @@ local ADDON_NAME, ns = ...
 
 ns.Changelog = {
 	{
+		version = "1.11.0",
+		date = "2026-08-18",
+		sections = {
+			{ head = "New Features", items = {
+				"Cooldown Master is now fully translated in all five languages. French, Russian and Korean went from covering only the phrases shared with my other addons to the whole addon, and Traditional Chinese went from a third of it to all of it. Every options label, tooltip, message and popup now reads in your client's language.",
+				"The tag help you get when you hover a Text or Label Text box now translates too. It was English for everyone before, which made it the largest block of untranslated text left in the addon.",
+			} },
+			{ head = "A note on the translations", items = {
+				"I am not able to test these in a non-English client - I do not have the other languages installed. Everything passes the automated checks, but those cannot catch a label that runs off its button or a tooltip that sends you to a setting you cannot find.",
+				"So if you see anything off, please tell me and I will fix it. The Discord button on this About tab, the comments on the CurseForge page, or a GitHub issue all reach me. Corrections from native speakers are very welcome.",
+			} },
+			{ head = "Bug Fixes", items = {
+				"Fixed the Default Lane dropdown in Filters falling back to English. It was built with translated lane names and then quietly overwritten with hardcoded English ones whenever the list refreshed, so on any translated client it reverted the moment you toggled a lane.",
+				"The Edit button on each custom cooldown, and the message shown when a profile export fails, were hardcoded English and now translate.",
+				"The icon nudge slider on the Lanes and Ready tabs shared a name with the Offset stacking style, so one word had to serve an adjective and a noun. It has its own name now and reads correctly in every language.",
+				"Corrected three Simplified Chinese tooltips that pointed you at controls using words those controls do not use, so following the instructions led nowhere.",
+				"Swept every language for tooltips that named a setting differently from the setting's own label, for two different settings that had ended up with the same name on one panel, and for text that overflowed its button.",
+			} },
+		},
+	},
+	{
 		version = "1.10.0",
 		date = "2026-08-15",
 		sections = {
 			{ head = "New Features", items = {
-				"Cooldown Master is now translated. Everything the addon draws - options, tooltips, ready boxes, this popup - reads in your client's language where a translation exists, and falls back to English where it does not. Simplified Chinese is complete, with thanks to the translator who contributed it. French, Russian and Korean cover the phrases Cooldown Master shares with my other addons and will fill in over time.",
+				"Cooldown Master is now translated. Everything the addon draws - options, tooltips, ready boxes, this popup - reads in your client's language where a translation exists, and falls back to English where it does not. French, Russian and Korean cover the phrases Cooldown Master shares with my other addons and will fill in over time. Simplified Chinese covers the whole addon, but only the shared phrases are the work of the translator credited on my other addons - the rest was a machine-assisted first pass that no native speaker had reviewed.",
 				"Translations are bundled in the addon, so there is nothing to install and nothing to download. Your client language decides, and switching languages switches the addon with it.",
 			} },
 			{ head = "Bug Fixes", items = {

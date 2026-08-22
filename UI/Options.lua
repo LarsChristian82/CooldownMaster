@@ -1087,7 +1087,7 @@ local function BuildLaneIconsForm(parent, laneIndex)
 	}))
 
 	place(W.CreateSlider(parent, {
-		label = L["Offset"], min = -30, max = 30, step = 1,
+		label = L["Icon Offset"], min = -30, max = 30, step = 1,
 		value = cfg.iconOffset, width = 240,
 		onChange = function(v) cfg.iconOffset = v; RefreshLane(laneIndex) end,
 	}))
@@ -1676,7 +1676,8 @@ local function RefreshLaneOptionLabels()
 	local lanes = ns.CDM and ns.CDM.db and ns.CDM.db.profile.lanes
 	for i = 1, 3 do
 		local cfg = lanes and lanes[i]
-		local text = (cfg and cfg.enabled == false) and ("Lane " .. i .. " (off)") or ("Lane " .. i)
+		local text = (cfg and cfg.enabled == false)
+			and string.format(L["Lane %d (off)"], i) or string.format(L["Lane %d"], i)
 		FILTER_LANE_OPTIONS[i + 1].text = text
 		FILTER_LANE_FOR_DEFAULTS[i].text = text
 	end
@@ -2542,7 +2543,7 @@ local function BuildCustomListRow(parent, def, y, selected)
 	del:SetPoint("TOPRIGHT", parent, "TOPRIGHT", -pad, y + 1)
 
 	local edit = W.CreateButton(parent, {
-		label = selected and "Editing" or "Edit", width = 62,
+		label = selected and L["Editing"] or L["Edit"], width = 62,
 		onClick = function()
 			local opening = filtersState.customSelected ~= id
 			filtersState.customSelected = opening and id or nil
@@ -2584,6 +2585,7 @@ end
 
 local function BuildFiltersCustomForm(parent)
 	local W = ns.Widgets
+	RefreshLaneOptionLabels()
 	local pad, rowGap = 12, 10
 	local y = -pad
 	local function place(widget, height)
@@ -3119,7 +3121,7 @@ local function BuildProfilesTab(content)
 	exportBtn:SetPoint("TOPLEFT", resetBtn, "BOTTOMLEFT", 0, -12)
 	exportBtn:SetScript("OnClick", function()
 		local s = ProfileExportString()
-		if s and ns.ShowURL then ns.ShowURL(s) else ns.CDM:Print("Export failed.") end
+		if s and ns.ShowURL then ns.ShowURL(s) else ns.CDM:Print(L["Export failed."]) end
 	end)
 	local importBtn = Theme.CreateButton(content, L["Import"], 130, 24)
 	importBtn:SetPoint("TOPLEFT", exportBtn, "TOPRIGHT", 16, 0)
@@ -3203,6 +3205,16 @@ local ABOUT_GOLD  = "|cffEBB706"
 local ABOUT_MUTED = "|cffb3b3b3"
 local ABOUT_WHITE = "|cffe6e6e6"
 local ABOUT_CLOSE = "|r"
+
+-- Latin handles, matching Everything Quests. A CJK name renders as empty boxes in the
+-- Western game font, so these must never be swapped for a translator's native-script name.
+local ABOUT_TRANSLATORS = {
+	{ name = "Zox",      line = L["Thanks to %s, who translated my other addons into French."] },
+	{ name = "Malevi4",  line = L["Thanks to %s, who translated my other addons into Russian."] },
+	{ name = "labrie75", line = L["Thanks to %s, who translated my other addons into Korean."] },
+	{ name = "Keriaovo", line = L["Thanks to %s, who translated my other addons into Simplified Chinese."] },
+	{ name = "BNS333",   line = L["Thanks to %s, who translated my other addons into Traditional Chinese."] },
+}
 
 local ABOUT_GITHUB_URL   = "https://github.com/wheelbarrel00/CooldownMaster"
 local ABOUT_BUG_URL      = "https://github.com/wheelbarrel00/CooldownMaster/issues"
@@ -3380,6 +3392,14 @@ local function BuildAboutTab(content)
 	body(ABOUT_WHITE .. string.format(
 		L["Cooldown Master carries forward the idea behind |cffEBB706%1$s|r by |cffEBB706%2$s|r - the timeline-cooldown addon that inspired this one. After Midnight changed how cooldowns work, I rebuilt the concept from the ground up for 12.0 with his blessing. Full credit for the original timeline-cooldown idea goes to him. Thank you, cliffclive."],
 		"CooldownTimeline2 (CDTL2)", "cliffclive") .. ABOUT_CLOSE)
+	gap(10)
+
+	header(L["Translations"])
+	body(ABOUT_WHITE .. L["Cooldown Master shares part of its text with my other addons, and those phrases are the work of the translators below. The rest was written in-house in their style and with their permission, so anything wrong in it is my mistake and not theirs. Corrections are very welcome."] .. ABOUT_CLOSE)
+	-- The name is a %s so a translator can place it where their language wants it.
+	for _, t in ipairs(ABOUT_TRANSLATORS) do
+		body(ABOUT_WHITE .. string.format(t.line, ABOUT_GOLD .. t.name .. ABOUT_CLOSE .. ABOUT_WHITE) .. ABOUT_CLOSE)
+	end
 	gap(10)
 
 	header(L["Thanks"])
@@ -3617,7 +3637,7 @@ local function BuildReadyIconsForm(parent, i)
 		onChange = function(v) cfg.iconAlpha = v; ReadyApply(i) end,
 	}))
 	place(W.CreateSlider(parent, {
-		label = L["Offset"], min = -30, max = 30, step = 1, value = cfg.iconOffset, width = 240,
+		label = L["Icon Offset"], min = -30, max = 30, step = 1, value = cfg.iconOffset, width = 240,
 		onChange = function(v) cfg.iconOffset = v; ReadyApply(i) end,
 	}))
 	place(W.CreateSlider(parent, {
